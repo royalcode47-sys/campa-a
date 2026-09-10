@@ -1,0 +1,471 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=Oswald:wght@700&family=Stack+Sans+Headline:wght@200..700&display=swap');
+</style>
+<style>
+  :root {
+    --ink: #eaebf0;
+    --muted: #f7ffbba7;
+    --muted-soft: #fcffec;
+    --primary: #475164;
+    --primary-dark: #22264d;
+    --accent: #1f2947;
+    --field-bg: #253450;
+    --field-bg-focus: #1a2840;
+    --page-bg: #ffffff;
+    --ok: #1f8a4c;
+    --err: #d64545;
+  }
+ 
+  * { box-sizing: border-box; }
+  html, body { width: 100%; overflow-x: hidden; }
+ 
+  .jf-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    width: 100%;
+    min-height: 100%;
+    padding: clamp(20px, 6vw, 48px) 14px;
+    background:
+      linear-gradient(rgba(10,14,26,0.72), rgba(10,14,26,0.82)),
+      url('hero4.png') center center / cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+  }
+ 
+  .jf-wrap {
+    width: 100%;
+    max-width: 400px;
+  }
+ 
+  .jf-card {
+    background: rgba(20, 32, 56, 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 22px;
+    overflow: hidden;
+    padding: 0 0 26px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.06) inset;
+  }
+
+  .jf-header-img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 9 / 6;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .jf-card-body {
+    padding: clamp(22px, 4vw, 36px) clamp(24px, 5vw, 48px) 0;
+  }
+ 
+ 
+ 
+  .jf-sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 26px;
+    line-height: 1.5;
+  }
+ 
+  .jf-field { margin-bottom: 14px; }
+ 
+  .jf-field label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 7px;
+  }
+ 
+  .jf-field .jf-opt {
+    color: var(--muted-soft);
+    font-weight: 500;
+  }
+ 
+  .jf-input-shell {
+    position: relative;
+    border-radius: 13px;
+    background: var(--field-bg);
+    border: 1.5px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+ 
+  .jf-input-shell:focus-within {
+    background: var(--field-bg-focus);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(224,169,46,0.15);
+  }
+ 
+  .jf-field input {
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--ink);
+    font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 13px;
+  }
+ 
+  .jf-field input::placeholder { color: rgba(234,235,240,0.40); }
+  .jf-field input:focus { outline: none; color: #ffffff; }
+ 
+  .button-82-pushable {
+    position: relative;
+    width: 100%;
+    margin-top: 14px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button-82-shadow,
+  .button-82-edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+  }
+
+  .button-82-shadow {
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+  }
+
+  .button-82-edge {
+    background: linear-gradient(
+      to left,
+      hsl(340deg 100% 16%) 0%,
+      hsl(340deg 100% 32%) 8%,
+      hsl(340deg 100% 32%) 92%,
+      hsl(340deg 100% 16%) 100%
+    );
+  }
+
+  .button-82-front {
+    display: block;
+    position: relative;
+    padding: 12px 27px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: inherit;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+  }
+
+  .button-82-pushable:hover {
+    filter: brightness(110%);
+    -webkit-filter: brightness(110%);
+  }
+
+  .button-82-pushable:hover .button-82-front {
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+  }
+
+  .button-82-pushable:active .button-82-front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+
+  .button-82-pushable:hover .button-82-shadow {
+    transform: translateY(4px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+  }
+
+  .button-82-pushable:active .button-82-shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+
+  .button-82-pushable:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .button-82-pushable:focus:not(:focus-visible) { outline: none; }
+
+  @media (min-width: 768px) {
+    .button-82-front {
+      font-size: 1.25rem;
+      padding: 12px 42px;
+    }
+  }
+ 
+
+ 
+  .jf-footer {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #edeef4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+ 
+  .jf-count {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+ 
+  .jf-count .jf-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+ 
+  .jf-count b { color: var(--ink); font-weight: 700; }
+ 
+  .jf-export {
+    padding: 9px 14px;
+    min-height: 36px;
+    border-radius: 10px;
+    border: 1.5px solid #e7e8f0;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+ 
+  .jf-export:hover { background: var(--field-bg); border-color: #dcdeea; }
+  .jf-export:disabled { opacity: 0.5; cursor: not-allowed; }
+ 
+  @media (max-width: 360px) {
+    .jf-card { padding: 22px 18px 22px; }
+    .jf-field { margin-bottom: 12px; }
+  }
+
+</style>
+ 
+<div class="jf-page">
+  <div class="jf-wrap">
+    <div class="jf-card">
+      <img src="hero3.png" alt="Jesucristo Es Real" class="jf-header-img">
+
+      <div class="jf-card-body">
+      
+      <p class="jf-sub">Regístrate para la campaña</p>
+ 
+      <form id="jfForm">
+        <div class="jf-field">
+          <label for="jfNombre">Nombre completo</label>
+          <div class="jf-input-shell">
+            <input type="text" id="jfNombre" required placeholder="Escribe tu nombre">
+          </div>
+        </div>
+ 
+        <div class="jf-field">
+          <label for="jfTelefono">Teléfono <span class="jf-opt">(opcional)</span></label>
+          <div class="jf-input-shell">
+          <input type="tel" id="jfTelefono" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{10}" title="Ingresa exactamente 10 dígitos" placeholder="3000000000">
+          </div>
+        </div>
+ 
+        <div class="jf-field">
+          <label for="jfInvito">¿Quién te invitó?</label>
+          <div class="jf-input-shell">
+            <input type="text" id="jfInvito" required placeholder="Nombre de la persona">
+          </div>
+        </div>
+ 
+        <button type="submit" class="button-82-pushable" id="jfBtn" role="button">
+          <span class="button-82-shadow"></span>
+          <span class="button-82-edge"></span>
+          <span class="button-82-front">Registrarme</span>
+        </button>
+      </form>
+ 
+      
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+(function () {
+  const form = document.getElementById('jfForm');
+  const btn = document.getElementById('jfBtn');
+  const btnText = btn.querySelector('.button-82-front');
+  const PREFIX = 'jer_registro:';
+  const countEl = document.querySelector('.jf-count');
+  const exportBtn = document.querySelector('.jf-export');
+
+  // SweetAlert2 tema oscuro personalizado
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3500,
+    timerProgressBar: true,
+    background: '#1e2c41',
+    color: '#eaebf0',
+    iconColor: '#e0a92e'
+  });
+
+  function showMsg(text, type) {
+    if (type === 'ok') {
+      Toast.fire({ icon: 'success', title: text });
+    } else {
+      Toast.fire({ icon: 'error', title: text });
+    }
+  }
+
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyLj8GB2Ri-YqK8nAK7NGJ4Lf1_985a53UkKCMk4MUaXmPB0btT6pDScB6b5QOVqP-LdQ/exec';
+ 
+  async function sendToSheet(entry) {
+    if (!SHEET_URL) return;
+    try {
+      // 'no-cors' porque Apps Script no siempre responde con encabezados
+      // CORS legibles desde el navegador; el envío igual llega y se guarda.
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(entry)
+      });
+    } catch (err) {
+      console.error('No se pudo enviar a Google Sheets:', err);
+    }
+  }
+ 
+  async function fetchAllEntries() {
+    const entries = [];
+    for (let index = 0; index < localStorage.length; index += 1) {
+      const key = localStorage.key(index);
+      if (!key || !key.startsWith(PREFIX)) continue;
+      try {
+        const value = localStorage.getItem(key);
+        if (value) entries.push(JSON.parse(value));
+      } catch (e) { /* skip missing/corrupt entries */ }
+    }
+    entries.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+    return entries;
+  }
+ 
+  async function refreshCount() {
+    if (!countEl && !exportBtn) return;
+    try {
+      const entries = await fetchAllEntries();
+      if (countEl) {
+        countEl.innerHTML = '<span class="jf-dot"></span><b>' + entries.length + '</b>&nbsp;registrado' + (entries.length === 1 ? '' : 's');
+      }
+      if (exportBtn) exportBtn.disabled = entries.length === 0;
+    } catch (e) {
+      if (countEl) countEl.innerHTML = '<span class="jf-dot"></span>No se pudo cargar el conteo.';
+    }
+  }
+ 
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btnText.textContent = 'Guardando...';
+
+    const nombre = document.getElementById('jfNombre').value.trim();
+    const telefono = document.getElementById('jfTelefono').value.trim();
+    const invito = document.getElementById('jfInvito').value.trim();
+ 
+    if (!nombre || !invito) {
+      showMsg('Completa tu nombre y quién te invitó.', 'err');
+      btn.disabled = false;
+      btnText.textContent = 'Registrarme';
+      return;
+    }
+
+    if (telefono && !/^\d{10}$/.test(telefono)) {
+      showMsg('El teléfono debe tener exactamente 10 dígitos.', 'err');
+      btn.disabled = false;
+      btnText.textContent = 'Registrarme';
+      return;
+    }
+ 
+    const entry = {
+      nombre,
+      telefono,
+      invito,
+      fecha: new Date().toISOString()
+    };
+ 
+    try {
+      const key = PREFIX + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem(key, JSON.stringify(entry));
+      await sendToSheet(entry);
+      showMsg('¡Listo! Quedaste registrado.', 'ok');
+      form.reset();
+      await refreshCount();
+    } catch (err) {
+      showMsg('No se pudo guardar. Intenta de nuevo.', 'err');
+    } finally {
+      btn.disabled = false;
+      btnText.textContent = 'Registrarme';
+    }
+  });
+ 
+  if (exportBtn) exportBtn.addEventListener('click', async function () {
+    exportBtn.disabled = true;
+    exportBtn.textContent = 'Preparando...';
+    try {
+      const entries = await fetchAllEntries();
+      if (entries.length === 0) {
+        showMsg('Aún no hay registros para exportar.', 'err');
+        return;
+      }
+      const rows = entries.map(e => ({
+        'Nombre completo': e.nombre || '',
+        'Teléfono': e.telefono || '',
+        'Quién invitó': e.invito || '',
+        'Fecha de registro': e.fecha ? new Date(e.fecha).toLocaleString('es-CO') : ''
+      }));
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws['!cols'] = [ {wch:26}, {wch:16}, {wch:24}, {wch:20} ];
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Registros');
+      XLSX.writeFile(wb, 'registros-jesucristo-es-real.xlsx');
+    } catch (err) {
+      showMsg('No se pudo generar el archivo Excel.', 'err');
+    } finally {
+      exportBtn.disabled = false;
+      exportBtn.textContent = 'Descargar Excel';
+      refreshCount();
+    }
+  });
+ 
+  refreshCount();
+})();
+</script>
+ 
