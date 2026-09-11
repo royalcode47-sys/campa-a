@@ -24,22 +24,28 @@
     --field-bg-focus: #1a2840;
     --page-bg: #ffffff;
     --ok: #1f8a4c;
-    --err: #d64545;
+    --err: #2d3452;
   }
  
   * { box-sizing: border-box; }
-  html, body { width: 100%; overflow-x: hidden; }
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+  }
  
   .jf-page {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     padding: clamp(20px, 6vw, 48px) 14px;
     background:
       linear-gradient(rgba(10,14,26,0.72), rgba(10,14,26,0.82)),
       url('hero4.png') center center / cover no-repeat fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
  
   .jf-wrap {
@@ -68,6 +74,158 @@
 
   .jf-card-body {
     padding: clamp(22px, 4vw, 36px) clamp(24px, 5vw, 48px) 0;
+  }
+
+  .jf-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 24px;
+    padding: 5px;
+    border-radius: 14px;
+    background: rgba(8, 15, 29, 0.56);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .jf-tab {
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 10px;
+    background: transparent;
+    color: var(--muted);
+    font: 600 13px/1.2 inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .jf-tab:hover { color: var(--ink); }
+
+  .jf-tab.is-active {
+    background: #ffffff;
+    color: #202b42;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.16);
+  }
+
+  .jf-panel[hidden] { display: none; }
+
+  .jf-content-panel {
+    min-height: 230px;
+  }
+
+  .jf-content-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .jf-content-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.12);
+    color: #ffffff;
+    font-size: 20px;
+  }
+
+  .jf-content-heading h2 {
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size: 16px;
+  }
+
+  .jf-content-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .jf-audio-player {
+    width: 100%;
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #253450, #182640);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+  }
+
+  .jf-audio-play {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #202b42;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .jf-audio-play:hover {
+    background: #f4f5fa;
+    transform: scale(1.05);
+  }
+
+  .jf-audio-copy { min-width: 0; }
+
+  .jf-audio-title {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .jf-audio-status {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .jf-audio-player iframe {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    border: 0;
+  }
+
+  .jf-audio-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: -8px 0 18px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .jf-audio-link:hover { text-decoration: underline; }
+
+  .jf-lyrics-view {
+    width: 100%;
+    padding: 18px 16px 20px;
+    border-radius: 13px;
+    background: linear-gradient(145deg, rgba(37,52,80,0.96), rgba(24,38,64,0.96));
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(234,235,240,0.62);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
  
  
@@ -159,10 +317,10 @@
   .button-82-edge {
     background: linear-gradient(
       to left,
-      hsl(340deg 100% 16%) 0%,
-      hsl(340deg 100% 32%) 8%,
-      hsl(340deg 100% 32%) 92%,
-      hsl(340deg 100% 16%) 100%
+      hsl(232, 46%, 20%) 0%,
+      hsl(245, 40%, 22%) 8%,
+      hsl(218, 50%, 21%) 92%,
+      hsl(242, 28%, 21%) 100%
     );
   }
 
@@ -174,8 +332,8 @@
     font-size: 1.1rem;
     font-weight: 700;
     font-family: inherit;
-    color: white;
-    background: hsl(345deg 100% 47%);
+    color: rgb(255, 254, 247);
+    background: hsl(218, 24%, 44%);
     will-change: transform;
     transform: translateY(-4px);
     transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
@@ -286,36 +444,83 @@
       <img src="hero3.png" alt="Jesucristo Es Real" class="jf-header-img">
 
       <div class="jf-card-body">
-      
-      <p class="jf-sub">Regístrate para la campaña</p>
- 
+
+      <div class="jf-tabs" role="tablist" aria-label="Secciones del formulario">
+        <button type="button" class="jf-tab is-active" id="jfTabAttendance" role="tab" aria-selected="true" aria-controls="jfAttendance">Asistencia</button>
+        <button type="button" class="jf-tab" id="jfTabContent" role="tab" aria-selected="false" aria-controls="jfContent">Coro Tema</button>
+      </div>
+
       <form id="jfForm">
-        <div class="jf-field">
-          <label for="jfNombre">Nombre completo</label>
-          <div class="jf-input-shell">
-            <input type="text" id="jfNombre" required placeholder="Escribe tu nombre">
+        <section class="jf-panel" id="jfAttendance" role="tabpanel" aria-labelledby="jfTabAttendance">
+         
+
+          <div class="jf-field">
+            <label for="jfNombre">Nombre completo</label>
+            <div class="jf-input-shell">
+              <input type="text" id="jfNombre" required placeholder="....">
+            </div>
           </div>
-        </div>
- 
-        <div class="jf-field">
-          <label for="jfTelefono">Teléfono <span class="jf-opt">(opcional)</span></label>
-          <div class="jf-input-shell">
-          <input type="tel" id="jfTelefono" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{10}" title="Ingresa exactamente 10 dígitos" placeholder="3000000000">
+
+          <div class="jf-field">
+            <label for="jfTelefono">Teléfono <span class="jf-opt">(opcional)</span></label>
+            <div class="jf-input-shell">
+              <input type="tel" id="jfTelefono" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{10}" title="Ingresa exactamente 10 dígitos" placeholder="+57 300 3211234">
+            </div>
           </div>
-        </div>
- 
-        <div class="jf-field">
-          <label for="jfInvito">¿Quién te invitó?</label>
-          <div class="jf-input-shell">
-            <input type="text" id="jfInvito" required placeholder="Nombre de la persona">
+
+          <div class="jf-field">
+            <label for="jfInvito">¿Quién te invitó?</label>
+            <div class="jf-input-shell">
+              <input type="text" id="jfInvito" required placeholder="....">
+            </div>
           </div>
-        </div>
- 
-        <button type="submit" class="button-82-pushable" id="jfBtn" role="button">
-          <span class="button-82-shadow"></span>
-          <span class="button-82-edge"></span>
-          <span class="button-82-front">Registrarme</span>
-        </button>
+
+          <button type="submit" class="button-82-pushable" id="jfBtn" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front">Registrarme</span>
+          </button>
+        </section>
+
+        <section class="jf-panel jf-content-panel" id="jfContent" role="tabpanel" aria-labelledby="jfTabContent" hidden>
+          <div class="jf-content-heading">
+            
+           
+          </div>
+          <div class="jf-audio-player" aria-label="Reproductor de audio de Prueba con Jesús">
+            <button type="button" class="jf-audio-play" id="jfAudioPlay" aria-label="Reproducir audio">&#9654;</button>
+            <div class="jf-audio-copy">
+              <p class="jf-audio-title">Prueba con Jesús</p>
+              <p class="jf-audio-status" id="jfAudioStatus">Pulsa para escuchar</p>
+            </div>
+            <iframe
+              id="jfYoutubePlayer"
+              src="https://www.youtube-nocookie.com/embed/3xsVxvPo2HY?enablejsapi=1&controls=0&rel=0&playsinline=1"
+              title="Prueba con Jesús - Canto tema"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+             
+          <div class="jf-field">
+            <span style="color:#909bb4; background-color:#1a1f2c; padding:5px; border-radius:4px; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Letra</span>
+            <div class="jf-lyrics-view" id="jfLyrics" aria-label="Letra de la canción">PRUEBA CON JESÚS
+
+Has venido aquí con todas tus heridas,
+anhelando en tu vida un nuevo día con Jesús
+y sintiéndote cansado y abatido,
+pon tu carga en el olvido y prueba ahora con Jesús.
+
+Cuando sientas que tu causa está perdida
+y no encuentras la salida
+prueba ahora con Jesús.
+
+Coro:
+Prueba con Jesús y se alumbrará tu vida,
+prueba con Jesús, tus heridas sanará,
+nadie más en todo el universo te podrá amar a ti
+así como Jesús.</div>
+          </div>
+        </section>
       </form>
  
       
@@ -332,6 +537,45 @@
   const PREFIX = 'jer_registro:';
   const countEl = document.querySelector('.jf-count');
   const exportBtn = document.querySelector('.jf-export');
+  const tabs = document.querySelectorAll('.jf-tab');
+  const panels = document.querySelectorAll('.jf-panel');
+  const audioPlay = document.getElementById('jfAudioPlay');
+  const audioStatus = document.getElementById('jfAudioStatus');
+  const youtubePlayer = document.getElementById('jfYoutubePlayer');
+  let audioPlaying = false;
+
+  function controlAudio(command) {
+    if (!youtubePlayer || !youtubePlayer.contentWindow) return;
+    youtubePlayer.contentWindow.postMessage(JSON.stringify({
+      event: 'command',
+      func: command,
+      args: []
+    }), 'https://www.youtube-nocookie.com');
+  }
+
+  if (audioPlay) audioPlay.addEventListener('click', function () {
+    audioPlaying = !audioPlaying;
+    controlAudio(audioPlaying ? 'playVideo' : 'pauseVideo');
+    audioPlay.innerHTML = audioPlaying ? '&#10074;&#10074;' : '&#9654;';
+    audioPlay.setAttribute('aria-label', audioPlaying ? 'Pausar audio' : 'Reproducir audio');
+    audioStatus.textContent = audioPlaying ? 'Reproduciendo ahora' : 'Audio pausado';
+  });
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      const targetId = tab.getAttribute('aria-controls');
+
+      tabs.forEach(function (item) {
+        const isActive = item === tab;
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-selected', String(isActive));
+      });
+
+      panels.forEach(function (panel) {
+        panel.hidden = panel.id !== targetId;
+      });
+    });
+  });
 
   // SweetAlert2 tema oscuro personalizado
   const Toast = Swal.mixin({
@@ -432,7 +676,7 @@
       const key = PREFIX + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
       localStorage.setItem(key, JSON.stringify(entry));
       await sendToSheet(entry);
-      showMsg('¡Listo! Quedaste registrado.', 'ok');
+      showMsg('Me alegra mucho que hayas venido', 'ok');
       form.reset();
       await refreshCount();
     } catch (err) {
