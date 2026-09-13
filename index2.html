@@ -430,6 +430,39 @@
  
   .jf-export:hover { background: var(--field-bg); border-color: #dcdeea; }
   .jf-export:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .jf-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: #ff0033;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .jf-social-link:hover {
+    background: #d9002b;
+    transform: translateY(-1px);
+  }
+
+  .jf-social-link:focus-visible {
+    outline: 3px solid rgba(255,255,255,0.75);
+    outline-offset: 3px;
+  }
+
+  .jf-social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
  
   @media (max-width: 360px) {
     .jf-card { padding: 22px 18px 22px; }
@@ -446,6 +479,13 @@
       <img src="hero3.png" alt="Jesucristo Es Real" class="jf-header-img">
 
       <div class="jf-card-body">
+
+      <a class="jf-social-link" href="https://www.youtube.com/@IASDNuevoEdenBAQ" target="_blank" rel="noopener noreferrer" aria-label="Suscríbete en YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/>
+        </svg>
+        Suscríbete
+      </a>
 
       <div class="jf-tabs" role="tablist" aria-label="Secciones del formulario">
         <button type="button" class="jf-tab is-active" id="jfTabAttendance" role="tab" aria-selected="true" aria-controls="jfAttendance">Asistencia</button>
@@ -524,8 +564,7 @@ así como Jesús.</div>
           </div>
         </section>
       </form>
- 
-      
+
       </div>
       </div>
     </div>
